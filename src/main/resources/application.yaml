@@ -1,1 +1,9 @@
-
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  datasource:
+    url: 
+    username:
+    password:
