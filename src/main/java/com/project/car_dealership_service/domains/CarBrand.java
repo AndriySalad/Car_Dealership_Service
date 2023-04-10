@@ -20,5 +20,5 @@ public class CarBrand {
     private String carBrandName;
     @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
-    private Country countryId;
+    private Country country;
 }

@@ -20,9 +20,10 @@ public class Gearbox {
     private String gearboxName;
     private String gearboxModel;
     private Integer stages;
-    private String drive;
+    @Enumerated(EnumType.STRING)
+    private Drive drive;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "gearbox_type_id", nullable = false)
     private GearboxType gearboxType;
 }

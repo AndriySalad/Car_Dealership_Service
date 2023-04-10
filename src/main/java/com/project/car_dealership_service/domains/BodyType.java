@@ -21,6 +21,6 @@ public class BodyType {
     private Long id;
     private String bodyTypeName;
 
-    @OneToMany(mappedBy = "body_type")
+    @OneToMany(mappedBy = "bodyType")
     private List<Body> listBody;
 }

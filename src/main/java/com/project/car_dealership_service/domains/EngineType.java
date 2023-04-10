@@ -20,6 +20,6 @@ public class EngineType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String engineType;
-    @OneToMany(mappedBy = "engine_type")
+    @OneToMany(mappedBy = "engineType")
     private List<Engine> listEngine;
 }
