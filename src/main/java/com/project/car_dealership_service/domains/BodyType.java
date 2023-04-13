@@ -21,6 +21,6 @@ public class BodyType {
     private Long id;
     private String bodyTypeName;
 
-    @OneToMany(mappedBy = "bodyType")
+    @OneToMany(mappedBy = "bodyType", cascade = CascadeType.REMOVE)
     private List<Body> listBody;
 }
