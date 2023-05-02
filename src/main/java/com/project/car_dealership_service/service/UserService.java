@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface UserService {
 
@@ -17,5 +18,9 @@ public interface UserService {
     void saveUserToken(User user, String jwtToken);
     void revokeAllUserTokens(User user);
     void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException;
+    User getByEmail(String email);
 
+    List<User> getAll();
+
+    User findById(Long id);
 }

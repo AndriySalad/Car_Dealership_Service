@@ -11,6 +11,7 @@ import com.project.car_dealership_service.domains.TokenType;
 import com.project.car_dealership_service.domains.User;
 import com.project.car_dealership_service.utils.AuthenticationRequest;
 import com.project.car_dealership_service.utils.AuthenticationResponse;
+import com.project.car_dealership_service.utils.ItemNotFoundException;
 import com.project.car_dealership_service.utils.RegisterRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,16 +23,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+
+
 
     @Override
     public AuthenticationResponse register(RegisterRequest request) {
@@ -42,7 +46,7 @@ public class UserServiceImpl implements UserService {
                 .role(Role.ROLE_USER)
                 .isActive(true)
                 .build();
-        var savedUser = repository.save(user);
+        var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         saveUserToken(savedUser, jwtToken);
@@ -60,7 +64,7 @@ public class UserServiceImpl implements UserService {
                         request.getPassword()
                 )
         );
-        var user = repository.findByEmail(request.getEmail())
+        var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
@@ -107,7 +111,7 @@ public class UserServiceImpl implements UserService {
         refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUsername(refreshToken);
         if (userEmail != null) {
-            var user = this.repository.findByEmail(userEmail)
+            var user = this.userRepository.findByEmail(userEmail)
                     .orElseThrow();
             if (jwtService.isTokenValid(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);
@@ -121,4 +125,20 @@ public class UserServiceImpl implements UserService {
             }
         }
     }
+
+    @Override
+    public User getByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(ItemNotFoundException::new);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(ItemNotFoundException::new);
+    }
+
 }
