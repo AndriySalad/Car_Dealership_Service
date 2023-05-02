@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BodyTypeRepository extends JpaRepository<BodyType, Long> {
     boolean findByBodyTypeName(String bodyTypeName);
+    BodyType findBodyTypeByBodyTypeName(String bodyTypeName);
 }
