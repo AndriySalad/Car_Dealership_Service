@@ -1,7 +1,10 @@
 package com.project.car_dealership_service.controllers;
 
+import com.project.car_dealership_service.domains.Body;
 import com.project.car_dealership_service.domains.BodyType;
 import com.project.car_dealership_service.domains.User;
+import com.project.car_dealership_service.dto.BodyDto;
+import com.project.car_dealership_service.service.BodyService;
 import com.project.car_dealership_service.service.BodyTypeService;
 import com.project.car_dealership_service.service.UserService;
 import com.project.car_dealership_service.utils.AuthenticationResponse;
@@ -20,6 +23,7 @@ public class AdminController {
 
     private final UserService userService;
     private final BodyTypeService bodyTypeService;
+    private final BodyService bodyService;
 
     @GetMapping("/users")
     public List<User> getAll()
@@ -47,5 +51,22 @@ public class AdminController {
     public ResponseEntity<ItemDeleteResponse> deleteBodyType(@PathVariable Long id){
         BodyType bodyType = bodyTypeService.getById(id);
         return ResponseEntity.ok(bodyTypeService.deleteBodyType(bodyType));
+    }
+
+    @PostMapping("/body/new")
+    public ResponseEntity<ItemCreateResponse> newBody(@RequestBody BodyDto newBody){
+        return ResponseEntity.ok(bodyService.createBody(newBody));
+    }
+
+    @PutMapping("/body/update/{id}")
+    public ResponseEntity<ItemCreateResponse> updateBody(@RequestBody BodyDto updatedBody, @PathVariable Long id){
+        Body body = bodyService.getOne(id);
+        return ResponseEntity.ok(bodyService.updateBody(updatedBody, body));
+    }
+
+    @DeleteMapping("/body/delete/{id}")
+    public ResponseEntity<ItemDeleteResponse> deleteBody(@PathVariable Long id){
+        Body body = bodyService.getOne(id);
+        return ResponseEntity.ok(bodyService.deleteBody(body));
     }
 }
