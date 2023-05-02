@@ -38,7 +38,7 @@ public class BodyTypeServiceImpl implements BodyTypeService{
         bodyTypeRepository.save(bodyType);
         return ItemCreateResponse.builder()
                 .message("Тип кузова створено!")
-                .nameItem(bodyType.getBodyTypeName())
+                .item(bodyType.getBodyTypeName())
                 .build();
     }
 
@@ -51,7 +51,7 @@ public class BodyTypeServiceImpl implements BodyTypeService{
         bodyTypeRepository.save(oldBodyType);
         return ItemCreateResponse.builder()
                 .message("Тип кузову обновлено!")
-                .nameItem(updatedBodyType.getBodyTypeName())
+                .item(updatedBodyType.getBodyTypeName())
                 .build();
     }
 

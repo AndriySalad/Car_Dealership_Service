@@ -1,13 +1,15 @@
 package com.project.car_dealership_service.controllers;
 
+import com.project.car_dealership_service.dao.BrakingSystemRepository;
 import com.project.car_dealership_service.domains.Body;
 import com.project.car_dealership_service.domains.BodyType;
+import com.project.car_dealership_service.domains.BrakingSystem;
 import com.project.car_dealership_service.domains.User;
 import com.project.car_dealership_service.dto.BodyDto;
 import com.project.car_dealership_service.service.BodyService;
 import com.project.car_dealership_service.service.BodyTypeService;
+import com.project.car_dealership_service.service.BrakingSystemService;
 import com.project.car_dealership_service.service.UserService;
-import com.project.car_dealership_service.utils.AuthenticationResponse;
 import com.project.car_dealership_service.utils.ItemCreateResponse;
 import com.project.car_dealership_service.utils.ItemDeleteResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ public class AdminController {
     private final UserService userService;
     private final BodyTypeService bodyTypeService;
     private final BodyService bodyService;
+    private final BrakingSystemService brakingSystemService;
 
     @GetMapping("/users")
     public List<User> getAll()
@@ -68,5 +71,22 @@ public class AdminController {
     public ResponseEntity<ItemDeleteResponse> deleteBody(@PathVariable Long id){
         Body body = bodyService.getOne(id);
         return ResponseEntity.ok(bodyService.deleteBody(body));
+    }
+
+    @PostMapping("/braking-system/new")
+    public ResponseEntity<ItemCreateResponse> newBrakingSystem(@RequestBody BrakingSystem brakingSystem){
+        return ResponseEntity.ok(brakingSystemService.createBrakingSystem(brakingSystem));
+    }
+
+    @PutMapping("/braking-system/update/{id}")
+    public ResponseEntity<ItemCreateResponse> updateBrakingSystem(@RequestBody BrakingSystem updatedBrakingSystem, @PathVariable Long id){
+        BrakingSystem brakingSystem = brakingSystemService.getOne(id);
+        return ResponseEntity.ok(brakingSystemService.updateBrakingSystem(updatedBrakingSystem, brakingSystem));
+    }
+
+    @DeleteMapping("/braking-system/delete/{id}")
+    public ResponseEntity<ItemDeleteResponse> deleteBrakingSystem(@PathVariable Long id){
+        BrakingSystem brakingSystem = brakingSystemService.getOne(id);
+        return ResponseEntity.ok(brakingSystemService.deleteBrakingSystem(brakingSystem));
     }
 }
