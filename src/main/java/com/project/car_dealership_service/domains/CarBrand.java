@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,4 +23,6 @@ public class CarBrand {
     @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
     private Country country;
+    @OneToMany(mappedBy = "carBrand")
+    private List<Car> cars;
 }
