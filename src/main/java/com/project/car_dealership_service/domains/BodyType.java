@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "engines")
+@Table(name = "body_types")
 public class BodyType {
 
     @Id

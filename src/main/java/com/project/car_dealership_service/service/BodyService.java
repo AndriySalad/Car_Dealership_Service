@@ -11,7 +11,7 @@ public interface BodyService {
 
     Body getOne(Long id);
     List<Body> getAll();
-    ItemCreateResponse createBody(BodyDto bodyDto);
-    ItemCreateResponse updateBody(BodyDto updatedBodyDto, Body oldBody);
+    ItemCreateResponse createBody(BodyDto bodyDto) throws Exception;
+    ItemCreateResponse updateBody(BodyDto updatedBodyDto, Body oldBody) throws Exception;
     ItemDeleteResponse deleteBody(Body body);
 }

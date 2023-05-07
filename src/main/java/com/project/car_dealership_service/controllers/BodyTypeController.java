@@ -22,7 +22,7 @@ public class BodyTypeController {
         return bodyTypeService.getAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public BodyType getById(@PathVariable Long id){
         return bodyTypeService.getById(id);
     }

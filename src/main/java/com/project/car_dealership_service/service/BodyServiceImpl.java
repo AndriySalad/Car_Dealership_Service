@@ -3,6 +3,7 @@ package com.project.car_dealership_service.service;
 import com.project.car_dealership_service.dao.BodyRepository;
 import com.project.car_dealership_service.dao.BodyTypeRepository;
 import com.project.car_dealership_service.domains.Body;
+import com.project.car_dealership_service.domains.BodyType;
 import com.project.car_dealership_service.dto.BodyDto;
 import com.project.car_dealership_service.utils.ItemCreateResponse;
 import com.project.car_dealership_service.utils.ItemDeleteResponse;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,9 +31,14 @@ public class BodyServiceImpl implements BodyService{
     }
 
     @Override
-    public ItemCreateResponse createBody(BodyDto bodyDto) {
+    public ItemCreateResponse createBody(BodyDto bodyDto) throws Exception {
+        Optional<BodyType> bodyType = bodyTypeRepository.findByBodyTypeName(bodyDto.getBodyType());
+        if(bodyType.isEmpty()){
+            throw new Exception("Типу кузова не існує");
+        }
+
         Body body = Body.builder()
-                .bodyType(bodyTypeRepository.findBodyTypeByBodyTypeName(bodyDto.getBodyType()))
+                .bodyType(bodyType.orElseThrow())
                 .length(bodyDto.getLength())
                 .width(bodyDto.getWidth())
                 .height(bodyDto.getHeight())
@@ -48,8 +55,13 @@ public class BodyServiceImpl implements BodyService{
     }
 
     @Override
-    public ItemCreateResponse updateBody(BodyDto updatedBody, Body oldBody) {
-        oldBody.setBodyType(bodyTypeRepository.findBodyTypeByBodyTypeName(updatedBody.getBodyType()));
+    public ItemCreateResponse updateBody(BodyDto updatedBody, Body oldBody) throws Exception {
+        Optional<BodyType> bodyType = bodyTypeRepository.findByBodyTypeName(updatedBody.getBodyType());
+        if(bodyType.isEmpty()){
+            throw new Exception("Типу кузова не існує");
+        }
+
+        oldBody.setBodyType(bodyType.orElseThrow(Exception::new));
         oldBody.setWidth(updatedBody.getWidth());
         oldBody.setHeight(updatedBody.getHeight());
         oldBody.setClearance(updatedBody.getClearance());

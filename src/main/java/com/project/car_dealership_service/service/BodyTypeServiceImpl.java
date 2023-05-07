@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,22 +30,24 @@ public class BodyTypeServiceImpl implements BodyTypeService{
 
     @Override
     public ItemCreateResponse createBodyType(BodyType newBodyType) {
-        if (bodyTypeRepository.findByBodyTypeName(newBodyType.getBodyTypeName())){
+        Optional<BodyType> bodyType = bodyTypeRepository.findByBodyTypeName(newBodyType.getBodyTypeName());
+        if (bodyType.isPresent()){
             throw new ItemAlreadyExistsException();
         }
-        BodyType bodyType = BodyType.builder()
+        BodyType createBodyType = BodyType.builder()
                 .bodyTypeName(newBodyType.getBodyTypeName())
                 .build();
-        bodyTypeRepository.save(bodyType);
+        bodyTypeRepository.save(createBodyType);
         return ItemCreateResponse.builder()
                 .message("Тип кузова створено!")
-                .item(bodyType.getBodyTypeName())
+                .item(createBodyType.getBodyTypeName())
                 .build();
     }
 
     @Override
     public ItemCreateResponse updateBodyType(BodyType updatedBodyType, BodyType oldBodyType) {
-        if (bodyTypeRepository.findByBodyTypeName(updatedBodyType.getBodyTypeName())){
+        Optional<BodyType> bodyType = bodyTypeRepository.findByBodyTypeName(updatedBodyType.getBodyTypeName());
+        if (bodyType.isPresent()){
             throw new ItemAlreadyExistsException();
         }
         oldBodyType.setBodyTypeName(updatedBodyType.getBodyTypeName());

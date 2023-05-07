@@ -57,12 +57,12 @@ public class AdminController {
     }
 
     @PostMapping("/body/new")
-    public ResponseEntity<ItemCreateResponse> newBody(@RequestBody BodyDto newBody){
+    public ResponseEntity<ItemCreateResponse> newBody(@RequestBody BodyDto newBody) throws Exception {
         return ResponseEntity.ok(bodyService.createBody(newBody));
     }
 
     @PutMapping("/body/update/{id}")
-    public ResponseEntity<ItemCreateResponse> updateBody(@RequestBody BodyDto updatedBody, @PathVariable Long id){
+    public ResponseEntity<ItemCreateResponse> updateBody(@RequestBody BodyDto updatedBody, @PathVariable Long id) throws Exception {
         Body body = bodyService.getOne(id);
         return ResponseEntity.ok(bodyService.updateBody(updatedBody, body));
     }
