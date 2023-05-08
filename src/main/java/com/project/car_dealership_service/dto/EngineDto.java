@@ -1,9 +1,5 @@
 package com.project.car_dealership_service.dto;
 
-import com.project.car_dealership_service.domains.EngineType;
-import com.project.car_dealership_service.domains.FuelType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

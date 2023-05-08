@@ -22,8 +22,5 @@ public class Gearbox {
     private Integer stages;
     @Enumerated(EnumType.STRING)
     private Drive drive;
-
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "gearbox_type_id", nullable = false)
-    private GearboxType gearboxType;
+    private String gearboxType;
 }

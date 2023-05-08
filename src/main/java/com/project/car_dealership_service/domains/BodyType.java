@@ -22,5 +22,5 @@ public class BodyType {
     private String bodyTypeName;
 
     @OneToMany(mappedBy = "bodyType", cascade = CascadeType.REMOVE)
-    private List<Body> listBody;
+    private List<Car> listBody;
 }

@@ -1,7 +1,6 @@
 package com.project.car_dealership_service.service;
 
 import com.project.car_dealership_service.dao.EngineRepository;
-import com.project.car_dealership_service.dao.EngineTypeRepository;
 import com.project.car_dealership_service.dao.FuelTypeRepository;
 import com.project.car_dealership_service.domains.Engine;
 import com.project.car_dealership_service.dto.EngineDto;
@@ -18,7 +17,6 @@ import java.util.List;
 public class EngineServiceImpl implements EngineService{
 
     private final EngineRepository engineRepository;
-    private final EngineTypeRepository engineTypeRepository;
     private final FuelTypeRepository fuelTypeRepository;
 
     @Override
@@ -38,7 +36,7 @@ public class EngineServiceImpl implements EngineService{
                 .engineName(engineDto.getEngineName())
                 .power(engineDto.getPower())
                 .fuelType(fuelTypeRepository.findByFuelTypeName(engineDto.getFuelType()).orElseThrow(ItemNotFoundException::new))
-                .engineType(engineTypeRepository.findByEngineType(engineDto.getEngineName()).orElseThrow(ItemNotFoundException::new))
+                .engineType(engineDto.getEngineType())
                 .numberOfCylinders(engineDto.getNumberOfCylinders())
                 .build();
         engineRepository.save(engine);
@@ -52,7 +50,7 @@ public class EngineServiceImpl implements EngineService{
     public ItemCreateResponse updateEngine(EngineDto updatedEngine, Engine oldEngine) {
 
         oldEngine.setEngineCapacity(updatedEngine.getEngineCapacity());
-        oldEngine.setEngineType(engineTypeRepository.findByEngineType(updatedEngine.getEngineName()).orElseThrow(ItemNotFoundException::new));
+        oldEngine.setEngineType(updatedEngine.getEngineType());
         oldEngine.setEngineName(updatedEngine.getEngineName());
         oldEngine.setPower(updatedEngine.getPower());
         oldEngine.setFuelType(fuelTypeRepository.findByFuelTypeName(updatedEngine.getFuelType()).orElseThrow(ItemNotFoundException::new));

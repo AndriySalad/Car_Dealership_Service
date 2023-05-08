@@ -1,8 +1,6 @@
 package com.project.car_dealership_service.controllers;
 
-import com.project.car_dealership_service.dao.BrakingSystemRepository;
 import com.project.car_dealership_service.domains.*;
-import com.project.car_dealership_service.dto.BodyDto;
 import com.project.car_dealership_service.dto.CarBrandDto;
 import com.project.car_dealership_service.dto.EngineDto;
 import com.project.car_dealership_service.service.*;
@@ -21,11 +19,8 @@ public class AdminController {
 
     private final UserService userService;
     private final BodyTypeService bodyTypeService;
-    private final BodyService bodyService;
-    private final BrakingSystemService brakingSystemService;
     private final CountryService countryService;
     private final CarBrandService carBrandService;
-    private final EngineTypeService engineTypeService;
     private final EngineService engineService;
 
     @GetMapping("/users")
@@ -54,40 +49,6 @@ public class AdminController {
     public ResponseEntity<ItemDeleteResponse> deleteBodyType(@PathVariable Long id){
         BodyType bodyType = bodyTypeService.getById(id);
         return ResponseEntity.ok(bodyTypeService.deleteBodyType(bodyType));
-    }
-
-    @PostMapping("/body/new")
-    public ResponseEntity<ItemCreateResponse> newBody(@RequestBody BodyDto newBody) throws Exception {
-        return ResponseEntity.ok(bodyService.createBody(newBody));
-    }
-
-    @PutMapping("/body/update/{id}")
-    public ResponseEntity<ItemCreateResponse> updateBody(@RequestBody BodyDto updatedBody, @PathVariable Long id) throws Exception {
-        Body body = bodyService.getOne(id);
-        return ResponseEntity.ok(bodyService.updateBody(updatedBody, body));
-    }
-
-    @DeleteMapping("/body/delete/{id}")
-    public ResponseEntity<ItemDeleteResponse> deleteBody(@PathVariable Long id){
-        Body body = bodyService.getOne(id);
-        return ResponseEntity.ok(bodyService.deleteBody(body));
-    }
-
-    @PostMapping("/braking-system/new")
-    public ResponseEntity<ItemCreateResponse> newBrakingSystem(@RequestBody BrakingSystem brakingSystem){
-        return ResponseEntity.ok(brakingSystemService.createBrakingSystem(brakingSystem));
-    }
-
-    @PutMapping("/braking-system/update/{id}")
-    public ResponseEntity<ItemCreateResponse> updateBrakingSystem(@RequestBody BrakingSystem updatedBrakingSystem, @PathVariable Long id){
-        BrakingSystem brakingSystem = brakingSystemService.getOne(id);
-        return ResponseEntity.ok(brakingSystemService.updateBrakingSystem(updatedBrakingSystem, brakingSystem));
-    }
-
-    @DeleteMapping("/braking-system/delete/{id}")
-    public ResponseEntity<ItemDeleteResponse> deleteBrakingSystem(@PathVariable Long id){
-        BrakingSystem brakingSystem = brakingSystemService.getOne(id);
-        return ResponseEntity.ok(brakingSystemService.deleteBrakingSystem(brakingSystem));
     }
 
     @PostMapping("/country/new")
@@ -124,22 +85,6 @@ public class AdminController {
         return ResponseEntity.ok(carBrandService.deleteCarBrand(carBrand));
     }
 
-    @PostMapping("/engine-type/new")
-    public ResponseEntity<ItemCreateResponse> newEngineType(@RequestBody EngineType engineType){
-        return ResponseEntity.ok(engineTypeService.createEngineType(engineType));
-    }
-
-    @PutMapping("/engine-type/update/{id}")
-    public ResponseEntity<ItemCreateResponse> updateEngineType(@RequestBody EngineType updatedEngineType, @PathVariable Long id){
-        EngineType oldEngineType = engineTypeService.findById(id);
-        return ResponseEntity.ok(engineTypeService.updateEngineType(updatedEngineType, oldEngineType));
-    }
-
-    @DeleteMapping("/engine-type/delete/{id}")
-    public ResponseEntity<ItemDeleteResponse> deleteEngineType(@PathVariable Long id){
-        EngineType engineType = engineTypeService.findById(id);
-        return ResponseEntity.ok(engineTypeService.deleteEngineType(engineType));
-    }
 
     @PostMapping("/engine/new")
     public ResponseEntity<ItemCreateResponse> newEngine(@RequestBody EngineDto newEngine){

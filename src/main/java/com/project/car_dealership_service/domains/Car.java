@@ -29,7 +29,21 @@ public class Car {
     private BigInteger price;
     @Enumerated(EnumType.STRING)
     private AvailableStatus status;
+    private String frontSuspensionType;
+    private String rearSuspensionType;
+    private Integer doorCount;
+    private Integer seatCount;
+    private Long length;
+    private Long width;
+    private Long height;
+    private Long clearance;
+    private Long trunkVolume;
+    private String rearBrakingSystemName;
+    private String frontBrakingSystemName;
 
+    @ManyToOne
+    @JoinColumn(name = "body_type_id", nullable = false)
+    private BodyType bodyType;
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "engine_id", nullable = false)
     private Engine engine;
@@ -37,23 +51,8 @@ public class Car {
     @JoinColumn(name = "gearbox_id", nullable = false)
     private Gearbox gearbox;
     @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "body_id", nullable = false)
-    private Body body;
-    @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "rear_braking_id", nullable = false)
-    private BrakingSystem rearBrakingSystem;
-    @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "front_braking_id", nullable = false)
-    private BrakingSystem frontBrakingSystem;
-    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "car_brand_id", nullable = false)
     private CarBrand carBrand;
-    @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "front_suspension_id", nullable = false)
-    private FrontSuspensionType frontSuspensionType;
-    @ManyToOne(cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "rare_suspension_id", nullable = false)
-    private RearSuspensionType rearSuspensionType;
     @OneToOne(mappedBy = "car", cascade = CascadeType.REFRESH)
     private Order order;
     @OneToMany(mappedBy = "car", cascade = CascadeType.REMOVE)
