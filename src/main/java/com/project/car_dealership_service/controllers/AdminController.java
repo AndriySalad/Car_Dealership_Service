@@ -22,6 +22,7 @@ public class AdminController {
     private final CountryService countryService;
     private final CarBrandService carBrandService;
     private final EngineService engineService;
+    private final FuelTypeService fuelTypeService;
 
     @GetMapping("/users")
     public List<User> getAll()
@@ -85,7 +86,6 @@ public class AdminController {
         return ResponseEntity.ok(carBrandService.deleteCarBrand(carBrand));
     }
 
-
     @PostMapping("/engine/new")
     public ResponseEntity<ItemCreateResponse> newEngine(@RequestBody EngineDto newEngine){
         return ResponseEntity.ok(engineService.createEngine(newEngine));
@@ -101,5 +101,16 @@ public class AdminController {
     public ResponseEntity<ItemDeleteResponse> deleteEngine(@PathVariable Long id){
         Engine engine = engineService.findById(id);
         return ResponseEntity.ok(engineService.deleteEngine(engine));
+    }
+
+    @PostMapping("/fuel-type/new")
+    public ResponseEntity<ItemCreateResponse> newFuelType(@RequestBody FuelType fuelType){
+        return ResponseEntity.ok(fuelTypeService.createFuelType(fuelType));
+    }
+
+    @DeleteMapping("/engine/delete/{id}")
+    public ResponseEntity<ItemDeleteResponse> deleteFuelType(@PathVariable Long id){
+        FuelType fuelType = fuelTypeService.findById(id);
+        return ResponseEntity.ok(fuelTypeService.deleteFuelType(fuelType));
     }
 }
