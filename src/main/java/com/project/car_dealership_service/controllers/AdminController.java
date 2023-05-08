@@ -4,6 +4,7 @@ import com.project.car_dealership_service.dao.BrakingSystemRepository;
 import com.project.car_dealership_service.domains.*;
 import com.project.car_dealership_service.dto.BodyDto;
 import com.project.car_dealership_service.dto.CarBrandDto;
+import com.project.car_dealership_service.dto.EngineDto;
 import com.project.car_dealership_service.service.*;
 import com.project.car_dealership_service.utils.ItemCreateResponse;
 import com.project.car_dealership_service.utils.ItemDeleteResponse;
@@ -24,6 +25,8 @@ public class AdminController {
     private final BrakingSystemService brakingSystemService;
     private final CountryService countryService;
     private final CarBrandService carBrandService;
+    private final EngineTypeService engineTypeService;
+    private final EngineService engineService;
 
     @GetMapping("/users")
     public List<User> getAll()
@@ -119,5 +122,39 @@ public class AdminController {
     public ResponseEntity<ItemDeleteResponse> deleteCarBrand(@PathVariable Long id){
         CarBrand carBrand = carBrandService.getById(id);
         return ResponseEntity.ok(carBrandService.deleteCarBrand(carBrand));
+    }
+
+    @PostMapping("/engine-type/new")
+    public ResponseEntity<ItemCreateResponse> newEngineType(@RequestBody EngineType engineType){
+        return ResponseEntity.ok(engineTypeService.createEngineType(engineType));
+    }
+
+    @PutMapping("/engine-type/update/{id}")
+    public ResponseEntity<ItemCreateResponse> updateEngineType(@RequestBody EngineType updatedEngineType, @PathVariable Long id){
+        EngineType oldEngineType = engineTypeService.findById(id);
+        return ResponseEntity.ok(engineTypeService.updateEngineType(updatedEngineType, oldEngineType));
+    }
+
+    @DeleteMapping("/engine-type/delete/{id}")
+    public ResponseEntity<ItemDeleteResponse> deleteEngineType(@PathVariable Long id){
+        EngineType engineType = engineTypeService.findById(id);
+        return ResponseEntity.ok(engineTypeService.deleteEngineType(engineType));
+    }
+
+    @PostMapping("/engine/new")
+    public ResponseEntity<ItemCreateResponse> newEngine(@RequestBody EngineDto newEngine){
+        return ResponseEntity.ok(engineService.createEngine(newEngine));
+    }
+
+    @PutMapping("/engine/update/{id}")
+    public ResponseEntity<ItemCreateResponse> updateEngine(@RequestBody EngineDto updatedEngine, @PathVariable Long id){
+        Engine oldEngine = engineService.findById(id);
+        return ResponseEntity.ok(engineService.updateEngine(updatedEngine, oldEngine));
+    }
+
+    @DeleteMapping("/engine/delete/{id}")
+    public ResponseEntity<ItemDeleteResponse> deleteEngine(@PathVariable Long id){
+        Engine engine = engineService.findById(id);
+        return ResponseEntity.ok(engineService.deleteEngine(engine));
     }
 }

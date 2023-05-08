@@ -32,13 +32,8 @@ public class BodyServiceImpl implements BodyService{
 
     @Override
     public ItemCreateResponse createBody(BodyDto bodyDto) throws Exception {
-        Optional<BodyType> bodyType = bodyTypeRepository.findByBodyTypeName(bodyDto.getBodyType());
-        if(bodyType.isEmpty()){
-            throw new Exception("Типу кузова не існує");
-        }
-
         Body body = Body.builder()
-                .bodyType(bodyType.orElseThrow())
+                .bodyType(bodyTypeRepository.findByBodyTypeName(bodyDto.getBodyType()).orElseThrow(ItemNotFoundException::new))
                 .length(bodyDto.getLength())
                 .width(bodyDto.getWidth())
                 .height(bodyDto.getHeight())

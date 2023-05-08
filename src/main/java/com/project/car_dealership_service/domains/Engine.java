@@ -22,8 +22,6 @@ public class Engine {
     private String power;
     private Long numberOfCylinders;
 
-
-
     @ManyToOne
     @JoinColumn(name = "fuel_type_id", nullable = false)
     private FuelType fuelType;
