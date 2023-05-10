@@ -29,8 +29,6 @@ public class Car {
     private BigInteger price;
     @Enumerated(EnumType.STRING)
     private AvailableStatus status;
-    private String frontSuspensionType;
-    private String rearSuspensionType;
     private Integer doorCount;
     private Integer seatCount;
     private Long length;
@@ -38,8 +36,8 @@ public class Car {
     private Long height;
     private Long clearance;
     private Long trunkVolume;
-    private String rearBrakingSystemName;
-    private String frontBrakingSystemName;
+    private String maxSpeed;
+    private String fuelUsage;
 
     @ManyToOne
     @JoinColumn(name = "body_type_id", nullable = false)

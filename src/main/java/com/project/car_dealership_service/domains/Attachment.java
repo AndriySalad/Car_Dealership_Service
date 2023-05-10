@@ -17,8 +17,7 @@ public class Attachment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nameFile;
-    private String contentType;
+    private String linkFile;
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "car_id", nullable = false)

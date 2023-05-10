@@ -2,6 +2,7 @@ package com.project.car_dealership_service.controllers;
 
 import com.project.car_dealership_service.domains.*;
 import com.project.car_dealership_service.dto.CarBrandDto;
+import com.project.car_dealership_service.dto.CarDto;
 import com.project.car_dealership_service.dto.EngineDto;
 import com.project.car_dealership_service.service.*;
 import com.project.car_dealership_service.utils.ItemCreateResponse;
@@ -23,6 +24,7 @@ public class AdminController {
     private final CarBrandService carBrandService;
     private final EngineService engineService;
     private final FuelTypeService fuelTypeService;
+    private final CarService carService;
 
     @GetMapping("/users")
     public List<User> getAll()
@@ -112,5 +114,22 @@ public class AdminController {
     public ResponseEntity<ItemDeleteResponse> deleteFuelType(@PathVariable Long id){
         FuelType fuelType = fuelTypeService.findById(id);
         return ResponseEntity.ok(fuelTypeService.deleteFuelType(fuelType));
+    }
+
+    @PostMapping("/car/new")
+    public ResponseEntity<ItemCreateResponse> newCar(@RequestBody CarDto carDto){
+        return ResponseEntity.ok(carService.createCar(carDto));
+    }
+
+    @PutMapping("/car/update/{id}")
+    public ResponseEntity<ItemCreateResponse> updateCar(@RequestBody CarDto updatedCar, @PathVariable Long id){
+        Car oldCar = carService.getById(id);
+        return ResponseEntity.ok(carService.updateCar(updatedCar, oldCar));
+    }
+
+    @DeleteMapping("/car/delete/{id}")
+    public ResponseEntity<ItemDeleteResponse> deleteCar(@PathVariable Long id){
+        Car car = carService.getById(id);
+        return ResponseEntity.ok(carService.deleteCar(car));
     }
 }
