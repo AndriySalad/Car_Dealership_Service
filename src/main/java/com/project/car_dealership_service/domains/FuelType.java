@@ -1,5 +1,6 @@
 package com.project.car_dealership_service.domains;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,5 +22,6 @@ public class FuelType {
     private Long id;
     private String fuelTypeName;
     @OneToMany(mappedBy = "fuelType")
+    @JsonManagedReference
     private List<Engine> listEngine;
 }

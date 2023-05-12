@@ -20,11 +20,11 @@ public class AdminController {
 
     private final UserService userService;
     private final BodyTypeService bodyTypeService;
-    private final CountryService countryService;
     private final CarBrandService carBrandService;
     private final EngineService engineService;
     private final FuelTypeService fuelTypeService;
     private final CarService carService;
+    private final OrderService orderService;
 
     @GetMapping("/users")
     public List<User> getAll()
@@ -52,23 +52,6 @@ public class AdminController {
     public ResponseEntity<ItemDeleteResponse> deleteBodyType(@PathVariable Long id){
         BodyType bodyType = bodyTypeService.getById(id);
         return ResponseEntity.ok(bodyTypeService.deleteBodyType(bodyType));
-    }
-
-    @PostMapping("/country/new")
-    public ResponseEntity<ItemCreateResponse> newCountry(@RequestBody Country country){
-        return ResponseEntity.ok(countryService.createCountry(country));
-    }
-
-    @PutMapping("/country/update/{id}")
-    public ResponseEntity<ItemCreateResponse> updateCountry(@RequestBody Country country, @PathVariable Long id){
-        Country oldCountry = countryService.getById(id);
-        return ResponseEntity.ok(countryService.updateCountry(country, oldCountry));
-    }
-
-    @DeleteMapping("/country/delete/{id}")
-    public ResponseEntity<ItemDeleteResponse> deleteCountry(@PathVariable Long id){
-        Country country = countryService.getById(id);
-        return ResponseEntity.ok(countryService.deleteCountry(country));
     }
 
     @PostMapping("/car-brand/new")
@@ -110,7 +93,7 @@ public class AdminController {
         return ResponseEntity.ok(fuelTypeService.createFuelType(fuelType));
     }
 
-    @DeleteMapping("/engine/delete/{id}")
+    @DeleteMapping("/fuel-type/delete/{id}")
     public ResponseEntity<ItemDeleteResponse> deleteFuelType(@PathVariable Long id){
         FuelType fuelType = fuelTypeService.findById(id);
         return ResponseEntity.ok(fuelTypeService.deleteFuelType(fuelType));
@@ -131,5 +114,15 @@ public class AdminController {
     public ResponseEntity<ItemDeleteResponse> deleteCar(@PathVariable Long id){
         Car car = carService.getById(id);
         return ResponseEntity.ok(carService.deleteCar(car));
+    }
+
+    @GetMapping("/orders")
+    public List<Order> getAllOrders(){
+        return orderService.getAll();
+    }
+
+    @GetMapping("/orders/{id}")
+    public Order getById(@PathVariable Long id){
+        return orderService.getById(id);
     }
 }

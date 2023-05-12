@@ -1,7 +1,6 @@
 package com.project.car_dealership_service.service;
 
 import com.project.car_dealership_service.dao.CarBrandRepository;
-import com.project.car_dealership_service.dao.CountryRepository;
 import com.project.car_dealership_service.domains.Car;
 import com.project.car_dealership_service.domains.CarBrand;
 import com.project.car_dealership_service.dto.CarBrandDto;
@@ -20,7 +19,6 @@ import java.util.Optional;
 public class CarBrandServiceImpl implements CarBrandService {
 
     private final CarBrandRepository carBrandRepository;
-    private final CountryRepository countryRepository;
     @Override
     public List<CarBrand> getAll() {
         return carBrandRepository.findAll();
@@ -44,7 +42,7 @@ public class CarBrandServiceImpl implements CarBrandService {
         }
         CarBrand newCarBrand = CarBrand.builder()
                 .carBrandName(carBrandDto.getCarBrandName())
-                .country(countryRepository.findByCountryName(carBrandDto.getCountryName()).orElseThrow(ItemNotFoundException::new))
+                .country(carBrandDto.getCountryName())
                 .build();
         carBrandRepository.save(newCarBrand);
         return ItemCreateResponse.builder()
@@ -60,7 +58,7 @@ public class CarBrandServiceImpl implements CarBrandService {
             throw new ItemAlreadyExistsException();
         }
         oldCarBrand.setCarBrandName(updatedCarBrand.getCarBrandName());
-        oldCarBrand.setCountry(countryRepository.findByCountryName(updatedCarBrand.getCountryName()).orElseThrow(ItemNotFoundException::new));
+        oldCarBrand.setCountry(updatedCarBrand.getCountryName());
         carBrandRepository.save(oldCarBrand);
         return ItemCreateResponse.builder()
                 .message("Марку авто відредаговано!")

@@ -32,7 +32,5 @@ public class Order {
     @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "car_id", nullable = false, referencedColumnName = "id")
     private Car car;
-    @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
 
 }

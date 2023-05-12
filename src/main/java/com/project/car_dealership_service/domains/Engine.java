@@ -1,5 +1,7 @@
 package com.project.car_dealership_service.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,5 +27,6 @@ public class Engine {
 
     @ManyToOne
     @JoinColumn(name = "fuel_type_id", nullable = false)
+    @JsonBackReference
     private FuelType fuelType;
 }

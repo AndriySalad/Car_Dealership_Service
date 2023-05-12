@@ -1,5 +1,6 @@
 package com.project.car_dealership_service.domains;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,9 +21,8 @@ public class CarBrand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String carBrandName;
-    @ManyToOne
-    @JoinColumn(name = "country_id", nullable = false)
-    private Country country;
+    private String country;
     @OneToMany(mappedBy = "carBrand")
+    @JsonManagedReference
     private List<Car> cars;
 }

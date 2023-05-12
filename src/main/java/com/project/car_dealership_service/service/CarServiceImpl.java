@@ -3,6 +3,7 @@ package com.project.car_dealership_service.service;
 import com.project.car_dealership_service.dao.AttachmentRepository;
 import com.project.car_dealership_service.dao.CarRepository;
 import com.project.car_dealership_service.domains.Attachment;
+import com.project.car_dealership_service.domains.AvailableStatus;
 import com.project.car_dealership_service.domains.Car;
 import com.project.car_dealership_service.dto.CarDto;
 import com.project.car_dealership_service.utils.ItemCreateResponse;
@@ -65,6 +66,7 @@ public class CarServiceImpl implements CarService {
                 .engine(carDto.getEngine())
                 .attachments(attachmentList)
                 .bodyType(carDto.getBodyType())
+                .status(AvailableStatus.AVAILABLE)
                 .build();
         carRepository.save(newCar);
         for (Attachment item: attachmentList) {

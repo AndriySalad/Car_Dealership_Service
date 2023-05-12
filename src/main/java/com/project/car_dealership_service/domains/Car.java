@@ -1,10 +1,12 @@
 package com.project.car_dealership_service.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -41,15 +43,19 @@ public class Car {
 
     @ManyToOne
     @JoinColumn(name = "body_type_id", nullable = false)
+    @JsonBackReference
     private BodyType bodyType;
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "engine_id", nullable = false)
+    @JsonBackReference
     private Engine engine;
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "gearbox_id", nullable = false)
+    @JsonBackReference
     private Gearbox gearbox;
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "car_brand_id", nullable = false)
+    @JsonBackReference
     private CarBrand carBrand;
     @OneToOne(mappedBy = "car", cascade = CascadeType.REFRESH)
     private Order order;
