@@ -1,5 +1,7 @@
 package com.project.car_dealership_service.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,14 +24,19 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String userName;
+    private String Name;
+    private String firstName;
+    private String lastName;
     private String password;
+    private String phoneNumber;
+    @Column(unique = true)
     private String email;
     private boolean isActive;
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    @JsonBackReference
     private List<Order> listOrder;
 
     @Override

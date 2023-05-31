@@ -1,6 +1,7 @@
 package com.project.car_dealership_service.utils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.project.car_dealership_service.domains.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +16,5 @@ public class AuthenticationResponse {
     private String accessToken;
     @JsonProperty("refresh_token")
     private String refreshToken;
+    private User user;
 }

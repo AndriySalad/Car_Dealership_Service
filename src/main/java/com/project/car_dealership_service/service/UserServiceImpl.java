@@ -9,10 +9,7 @@ import com.project.car_dealership_service.domains.Role;
 import com.project.car_dealership_service.domains.Token;
 import com.project.car_dealership_service.domains.TokenType;
 import com.project.car_dealership_service.domains.User;
-import com.project.car_dealership_service.utils.AuthenticationRequest;
-import com.project.car_dealership_service.utils.AuthenticationResponse;
-import com.project.car_dealership_service.utils.ItemNotFoundException;
-import com.project.car_dealership_service.utils.RegisterRequest;
+import com.project.car_dealership_service.utils.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -40,9 +37,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
-                .userName(request.getUserName())
+                .Name(request.getUserName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
+                .phoneNumber(request.getPhone())
                 .role(Role.ROLE_USER)
                 .isActive(true)
                 .build();
@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserService {
         var refreshToken = jwtService.generateRefreshToken(user);
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
+                .user(user)
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
@@ -71,6 +72,7 @@ public class UserServiceImpl implements UserService {
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder()
+                .user(user)
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
@@ -139,6 +141,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(ItemNotFoundException::new);
+    }
+
+    @Override
+    public User updateUser(UserChangeInfoRequest updatedUser, User user) {
+        user.setName(updatedUser.getName());
+        user.setEmail(updatedUser.getEmail());
+        user.setFirstName(updatedUser.getFirstName());
+        user.setLastName(updatedUser.getLastName());
+        user.setPhoneNumber(updatedUser.getPhoneNumber());
+        userRepository.save(user);
+        return user;
     }
 
 }

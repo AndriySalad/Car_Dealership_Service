@@ -1,6 +1,7 @@
 package com.project.car_dealership_service.controllers;
 
 import com.project.car_dealership_service.domains.Car;
+import com.project.car_dealership_service.domains.Order;
 import com.project.car_dealership_service.service.CarService;
 import com.project.car_dealership_service.service.OrderService;
 import com.project.car_dealership_service.service.UserService;
@@ -33,12 +34,12 @@ public class CarController {
     }
 
     @PostMapping("/{id}/order")
-    public ResponseEntity<ItemCreateResponse> createOrder(@PathVariable Long id, Principal principal){
-        return ResponseEntity.ok(orderService.createOrder(userService.getByEmail(SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getName()),
-                carService.getById(id)));
+    public Order createOrder(@PathVariable Long id){
+        return orderService.createOrder(
+                userService.getByEmail(SecurityContextHolder.getContext().getAuthentication().getName()),
+                carService.getById(id));
 
     }
+
+
 }

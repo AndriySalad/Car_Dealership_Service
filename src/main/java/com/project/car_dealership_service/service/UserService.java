@@ -5,6 +5,7 @@ import com.project.car_dealership_service.domains.User;
 import com.project.car_dealership_service.utils.AuthenticationRequest;
 import com.project.car_dealership_service.utils.AuthenticationResponse;
 import com.project.car_dealership_service.utils.RegisterRequest;
+import com.project.car_dealership_service.utils.UserChangeInfoRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -23,4 +24,6 @@ public interface UserService {
     List<User> getAll();
 
     User findById(Long id);
+
+    User updateUser(UserChangeInfoRequest updatedUser, User user);
 }

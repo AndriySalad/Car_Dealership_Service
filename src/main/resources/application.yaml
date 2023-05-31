@@ -1,4 +1,6 @@
 spring:
+  mvc:
+    dispatch-options-request: true
   jpa:
     hibernate:
       ddl-auto: update

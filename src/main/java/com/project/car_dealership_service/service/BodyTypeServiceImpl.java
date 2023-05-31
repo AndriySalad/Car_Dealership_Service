@@ -63,7 +63,6 @@ public class BodyTypeServiceImpl implements BodyTypeService{
         bodyTypeRepository.delete(bodyType);
         return ItemDeleteResponse.builder()
                 .message("Тип кузову видалено!")
-                .object(bodyType)
                 .build();
     }
 }

@@ -1,0 +1,18 @@
+.cs-column-text h1 {
+    color:#fff !important; 
+    font-size: 50px !important; 
+    line-height: 53px !important; 
+    text-shadow: 3px 4px 6px rgba(0,0,0,.37);
+}
+
+#page-section-1 {
+    background: url(../../extra-images/full-section-img.jpg) no-repeat; 
+    background-size: cover; 
+    padding: 206px 0 80px; 
+    text-shadow: 3px 4px 6px rgba(0,0,0,.37); 
+    margin-top: -30px;
+}
+
+.image-frame {
+    padding-top: 40px;
+}

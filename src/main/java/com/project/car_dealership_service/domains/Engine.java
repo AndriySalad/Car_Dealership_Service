@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,9 +26,8 @@ public class Engine {
     private String power;
     private Long numberOfCylinders;
     private String engineType;
-
-    @ManyToOne
-    @JoinColumn(name = "fuel_type_id", nullable = false)
+    private String fuelType;
+    @OneToMany(mappedBy = "engine", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JsonBackReference
-    private FuelType fuelType;
+    private List<Car> listBody;
 }

@@ -1,5 +1,6 @@
 package com.project.car_dealership_service.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,5 +22,6 @@ public class Attachment {
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "car_id", nullable = false)
+    @JsonBackReference
     private Car car;
 }

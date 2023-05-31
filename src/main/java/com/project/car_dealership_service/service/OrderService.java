@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface OrderService {
 
-    ItemCreateResponse createOrder(User user, Car car);
+    Order createOrder(User user, Car car);
     List<Order> getAll();
     Order getById(Long id);
+
+    List<Order> getAllByUser(User user);
 }

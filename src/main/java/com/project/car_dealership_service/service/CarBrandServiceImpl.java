@@ -35,43 +35,24 @@ public class CarBrandServiceImpl implements CarBrandService {
     }
 
     @Override
-    public ItemCreateResponse createCarBrand(CarBrandDto carBrandDto) {
-        Optional<CarBrand> carBrand = carBrandRepository.findByCarBrandName(carBrandDto.getCarBrandName());
-        if(carBrand.isPresent()) {
+    public CarBrand createCarBrand(CarBrandDto carBrand) {
+        Optional<CarBrand> carBrandCheck = carBrandRepository.findByCarBrandName(carBrand.getName());
+        if(carBrandCheck.isPresent()) {
             throw new ItemAlreadyExistsException();
         }
         CarBrand newCarBrand = CarBrand.builder()
-                .carBrandName(carBrandDto.getCarBrandName())
-                .country(carBrandDto.getCountryName())
+                .carBrandName(carBrand.getName())
                 .build();
         carBrandRepository.save(newCarBrand);
-        return ItemCreateResponse.builder()
-                .message("Марку авто створено!")
-                .item(newCarBrand)
-                .build();
+        return newCarBrand;
     }
 
-    @Override
-    public ItemCreateResponse updateCarBrand(CarBrandDto updatedCarBrand, CarBrand oldCarBrand) {
-        Optional<CarBrand> carBrand = carBrandRepository.findByCarBrandName(updatedCarBrand.getCarBrandName());
-        if(carBrand.isPresent()) {
-            throw new ItemAlreadyExistsException();
-        }
-        oldCarBrand.setCarBrandName(updatedCarBrand.getCarBrandName());
-        oldCarBrand.setCountry(updatedCarBrand.getCountryName());
-        carBrandRepository.save(oldCarBrand);
-        return ItemCreateResponse.builder()
-                .message("Марку авто відредаговано!")
-                .item(oldCarBrand)
-                .build();
-    }
 
     @Override
     public ItemDeleteResponse deleteCarBrand(CarBrand carBrand) {
         carBrandRepository.delete(carBrand);
         return ItemDeleteResponse.builder()
                 .message("Марку авто видалено!")
-                .object(carBrand)
                 .build();
     }
 }

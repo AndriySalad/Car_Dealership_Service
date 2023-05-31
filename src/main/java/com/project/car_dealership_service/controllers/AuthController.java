@@ -27,10 +27,6 @@ public class AuthController {
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody RegisterRequest request
     ) {
-        if (!request.getPassword().equals(request.getMatchingPassword())){
-            throw new RuntimeException("Паролі не співпадають!");
-        }
-
         return ResponseEntity.ok(service.register(request));
     }
     @PostMapping("/authenticate")

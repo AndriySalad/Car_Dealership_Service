@@ -23,11 +23,10 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf()
-                .disable()
+                .cors().and().csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/auth/**", "/cars", "/cars/{id}", "/body-types/**", "/car-brand/**", "/engine/**", "/gearbox", "/statistic/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

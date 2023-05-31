@@ -63,7 +63,6 @@ public class GearboxServiceImpl implements  GearBoxService{
     public ItemDeleteResponse deleteGearbox(Gearbox gearbox) {
         gearboxRepository.delete(gearbox);
         return ItemDeleteResponse.builder()
-                .object(gearbox)
                 .message("Коробку передач видалено!")
                 .build();
     }

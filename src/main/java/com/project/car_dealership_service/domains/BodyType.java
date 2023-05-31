@@ -1,5 +1,6 @@
 package com.project.car_dealership_service.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class BodyType {
     private Long id;
     private String bodyTypeName;
 
-    @OneToMany(mappedBy = "bodyType", cascade = CascadeType.REMOVE)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "bodyType", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Car> listBody;
 }

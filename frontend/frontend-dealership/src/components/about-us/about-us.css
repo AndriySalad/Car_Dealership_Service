@@ -1,0 +1,39 @@
+#subheader-about-us {
+    background:url(../../extra-images/bg-subheader.jpg) no-repeat 0 0 /cover; 
+    min-height:296px; 
+    padding:90px 0 0; 
+    margin-bottom:70px;
+}
+
+.cs-page-title h1 {
+    color:#fff !important;
+}
+
+.cs-page-title p {
+    color:#fff !important;
+}
+
+#team-title{
+    text-align:center; 
+    color:#333333; 
+    margin-bottom:45px;
+}
+
+#team-title h2 {
+    margin-bottom:5px; 
+    text-transform:uppercase !important;
+}
+
+#page-section-5 {
+    margin-bottom:70px;
+}
+
+#page-section-6 {
+    background:url(../../extra-images/bg-counter.jpg) no-repeat 0 0 / cover; 
+    margin-bottom:50px; 
+    margin-top:20px;
+}
+
+.cs-text {
+    color: #fff;
+}

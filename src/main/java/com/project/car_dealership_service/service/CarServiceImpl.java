@@ -1,10 +1,8 @@
 package com.project.car_dealership_service.service;
 
-import com.project.car_dealership_service.dao.AttachmentRepository;
-import com.project.car_dealership_service.dao.CarRepository;
-import com.project.car_dealership_service.domains.Attachment;
-import com.project.car_dealership_service.domains.AvailableStatus;
-import com.project.car_dealership_service.domains.Car;
+import com.project.car_dealership_service.dao.*;
+
+import com.project.car_dealership_service.domains.*;
 import com.project.car_dealership_service.dto.CarDto;
 import com.project.car_dealership_service.utils.ItemCreateResponse;
 import com.project.car_dealership_service.utils.ItemDeleteResponse;
@@ -14,7 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +23,10 @@ public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
     private final  FileUpload fileUpload;
     private final AttachmentRepository attachmentRepository;
+    private final GearboxRepository gearboxRepository;
+    private final EngineRepository engineRepository;
+    private final BodyTypeRepository bodyTypeRepository;
+    private final CarBrandRepository carBrandRepository;
 
     @Override
     public List<Car> getAll() {
@@ -35,10 +39,10 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public ItemCreateResponse createCar(CarDto carDto) {
-        List<Attachment> attachmentList = null;
+    public Car createCar(CarDto carDto, List<MultipartFile> files) {
+        List<Attachment> attachmentList = new ArrayList<>();
 
-        carDto.getAttachments().stream().forEach(item -> {
+        files.stream().forEach(item -> {
             try {
                 attachmentList.add(Attachment.builder()
                                 .linkFile(fileUpload.uploadFile(item))
@@ -48,7 +52,41 @@ public class CarServiceImpl implements CarService {
             }
         });
 
+        Optional<CarBrand> carBrandCheck = carBrandRepository.findByCarBrandName(carDto.getCarBrandName());
+        CarBrand carBrand = carBrandCheck.orElse(CarBrand.builder().carBrandName(carDto.getCarBrandName()).build());
+
+        carBrandRepository.save(carBrand);
+
+        Engine engine = Engine.builder()
+                .numberOfCylinders(carDto.getNumberOfCylinders())
+                .engineCapacity(carDto.getEngineCapacity())
+                .power(carDto.getPower())
+                .engineName(carDto.getEngineName())
+                .engineType(carDto.getGearboxType())
+                .fuelType(carDto.getFuelType())
+                .build();
+        engineRepository.save(engine);
+
+        Gearbox gearbox = Gearbox.builder()
+                .stages(carDto.getStages())
+                .gearboxType(carDto.getGearboxType())
+                .drive(Drive.valueOf(carDto.getDrive()))
+                .gearboxModel(carDto.getGearboxModel())
+                .gearboxName(carDto.getGearboxName())
+                .build();
+
+        gearboxRepository.save(gearbox);
+
+        BodyType bodyType = bodyTypeRepository.findByBodyTypeName(carDto.getBodyTypeName()).orElse(BodyType.builder()
+                        .bodyTypeName(carDto.getBodyTypeName())
+                        .build());
+
+        bodyTypeRepository.save(bodyType);
+
+
+
         Car newCar = Car.builder()
+                .yearOfCreation(carDto.getYearOfCreation())
                 .model(carDto.getModel())
                 .description(carDto.getDescription())
                 .doorCount(carDto.getDoorCount())
@@ -61,54 +99,29 @@ public class CarServiceImpl implements CarService {
                 .price(carDto.getPrice())
                 .width(carDto.getWidth())
                 .trunkVolume(carDto.getTrunkVolume())
-                .carBrand(carDto.getCarBrand())
-                .gearbox(carDto.getGearbox())
-                .engine(carDto.getEngine())
-                .attachments(attachmentList)
-                .bodyType(carDto.getBodyType())
+                .carBrand(carBrand)
+                .gearbox(gearbox)
+                .engine(engine)
+                .bodyType(bodyType)
                 .status(AvailableStatus.AVAILABLE)
+                .millage(carDto.getMillage())
                 .build();
         carRepository.save(newCar);
         for (Attachment item: attachmentList) {
             item.setCar(newCar);
             attachmentRepository.save(item);
         }
-        return ItemCreateResponse.builder()
-                .item(newCar)
-                .message("Машину створено!")
-                .build();
+        newCar.setAttachments(attachmentRepository.getAttachmentsByCar(newCar));
+        carRepository.save(newCar);
+        return newCar;
     }
 
-    @Override
-    public ItemCreateResponse updateCar(CarDto updatedCarDto, Car oldCar) {
-        oldCar.setCarBrand(updatedCarDto.getCarBrand());
-        oldCar.setDescription(updatedCarDto.getDescription());
-        oldCar.setClearance(updatedCarDto.getClearance());
-        oldCar.setEngine(updatedCarDto.getEngine());
-        oldCar.setGearbox(updatedCarDto.getGearbox());
-        oldCar.setHeight(updatedCarDto.getHeight());
-        oldCar.setBodyType(updatedCarDto.getBodyType());
-        oldCar.setLength(updatedCarDto.getLength());
-        oldCar.setDoorCount(updatedCarDto.getDoorCount());
-        oldCar.setWidth(updatedCarDto.getWidth());
-        oldCar.setTrunkVolume(updatedCarDto.getTrunkVolume());
-        oldCar.setPrice(updatedCarDto.getPrice());
-        oldCar.setFuelUsage(updatedCarDto.getFuelUsage());
-        oldCar.setMaxSpeed(updatedCarDto.getMaxSpeed());
-        oldCar.setModel(updatedCarDto.getModel());
-        carRepository.save(oldCar);
-        return ItemCreateResponse.builder()
-                .item(oldCar)
-                .message("Машину обновлено!")
-                .build();
-    }
 
     @Override
     public ItemDeleteResponse deleteCar(Car car) {
         carRepository.delete(car);
         return ItemDeleteResponse.builder()
                 .message("Машину видалено!")
-                .object(car)
                 .build();
     }
 }

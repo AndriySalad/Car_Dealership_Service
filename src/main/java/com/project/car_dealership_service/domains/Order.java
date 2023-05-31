@@ -1,5 +1,8 @@
 package com.project.car_dealership_service.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +27,7 @@ public class Order {
     private Long id;
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonManagedReference
     private User user;
     @CreationTimestamp
     private LocalDateTime creationDate;
@@ -31,6 +35,7 @@ public class Order {
     private LocalDateTime updatedDate;
     @OneToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "car_id", nullable = false, referencedColumnName = "id")
+    @JsonManagedReference
     private Car car;
 
 }

@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CarBrandDto {
-    private String carBrandName;
-    private String countryName;
+    private String name;
 }

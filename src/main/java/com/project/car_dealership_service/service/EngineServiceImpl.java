@@ -1,7 +1,6 @@
 package com.project.car_dealership_service.service;
 
 import com.project.car_dealership_service.dao.EngineRepository;
-import com.project.car_dealership_service.dao.FuelTypeRepository;
 import com.project.car_dealership_service.domains.Engine;
 import com.project.car_dealership_service.dto.EngineDto;
 import com.project.car_dealership_service.utils.ItemCreateResponse;
@@ -17,7 +16,6 @@ import java.util.List;
 public class EngineServiceImpl implements EngineService{
 
     private final EngineRepository engineRepository;
-    private final FuelTypeRepository fuelTypeRepository;
 
     @Override
     public List<Engine> getAll() {
@@ -35,7 +33,7 @@ public class EngineServiceImpl implements EngineService{
                 .engineCapacity(engineDto.getEngineCapacity())
                 .engineName(engineDto.getEngineName())
                 .power(engineDto.getPower())
-                .fuelType(fuelTypeRepository.findByFuelTypeName(engineDto.getFuelType()).orElseThrow(ItemNotFoundException::new))
+                .fuelType(engineDto.getFuelType())
                 .engineType(engineDto.getEngineType())
                 .numberOfCylinders(engineDto.getNumberOfCylinders())
                 .build();
@@ -53,7 +51,7 @@ public class EngineServiceImpl implements EngineService{
         oldEngine.setEngineType(updatedEngine.getEngineType());
         oldEngine.setEngineName(updatedEngine.getEngineName());
         oldEngine.setPower(updatedEngine.getPower());
-        oldEngine.setFuelType(fuelTypeRepository.findByFuelTypeName(updatedEngine.getFuelType()).orElseThrow(ItemNotFoundException::new));
+        oldEngine.setFuelType(updatedEngine.getFuelType());
         oldEngine.setNumberOfCylinders(updatedEngine.getNumberOfCylinders());
 
         engineRepository.save(oldEngine);
@@ -68,7 +66,6 @@ public class EngineServiceImpl implements EngineService{
         engineRepository.delete(engine);
         return ItemDeleteResponse.builder()
                 .message("Двигун видалено!")
-                .object(engine)
                 .build();
     }
 }

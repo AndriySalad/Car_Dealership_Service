@@ -13,7 +13,6 @@ public interface CarBrandService {
     List<CarBrand> getAll();
     CarBrand getById(Long id);
     List<Car> getCarByCarBrand(CarBrand carBrand);
-    ItemCreateResponse createCarBrand(CarBrandDto carBrand);
-    ItemCreateResponse updateCarBrand(CarBrandDto updatedCarBrand, CarBrand oldCarBrand);
+    CarBrand createCarBrand(CarBrandDto carBrand);
     ItemDeleteResponse deleteCarBrand(CarBrand carBrand);
 }

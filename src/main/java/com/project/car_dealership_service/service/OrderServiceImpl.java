@@ -22,25 +22,23 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public ItemCreateResponse createOrder(User user, Car car) {
+    public Order createOrder(User user, Car car) {
 
         Order order = Order.builder()
                 .car(car)
                 .user(user)
                 .build();
-
+        orderRepository.save(order);
         List<Order> orderList = user.getListOrder();
         orderList.add(order);
         user.setListOrder(orderList);
         userRepository.save(user);
+        orderRepository.save(order);
         car.setOrder(order);
         car.setStatus(AvailableStatus.SOLD);
         carRepository.save(car);
         orderRepository.save(order);
-        return ItemCreateResponse.builder()
-                .message("Замовлення створено!")
-                .item(order)
-                .build();
+        return order;
     }
 
     @Override
@@ -51,5 +49,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order getById(Long id) {
         return orderRepository.findById(id).orElseThrow(ItemNotFoundException::new);
+    }
+
+    @Override
+    public List<Order> getAllByUser(User user) {
+        return orderRepository.getAllByUser(user);
     }
 }

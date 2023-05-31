@@ -1,0 +1,12 @@
+#page-section-9{
+    background: url(../../extra-images/user-bg-img.jpg) no-repeat;
+    background-size: cover;
+    min-height: 175px;
+    margin-top: -30px;
+    margin-bottom: -129px;
+}
+
+.cs-default-btn {
+    color:#4aa818; 
+    border:1px solid #4aa818;
+}
