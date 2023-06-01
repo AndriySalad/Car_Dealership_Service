@@ -1,19 +1,4 @@
-/*!
- * Bootstrap v3.3.5 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
 
-/*!
- * Generated using the Bootstrap Customizer (http://getbootstrap.com/customize/?id=5bcbd2a14575824365c9)
- * Config saved to config.json and https://gist.github.com/5bcbd2a14575824365c9
- */
-/*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
-/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -358,6 +343,7 @@ pre code {
   overflow-y: scroll;
 }
 .container {
+  height: 100%;
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
@@ -5408,7 +5394,7 @@ button.close {
   }
 }
 
-/*faisal style*/
+
 .cs-blog-listing.blog-grid .cs-media figcaption{pointer-events:none;}
 .blog-listing.large-view .cs-media figcaption{pointer-events:none;}
 .blog-listing.medium-view .cs-media figcaption{pointer-events:none;}

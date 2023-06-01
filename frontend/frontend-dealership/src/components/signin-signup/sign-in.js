@@ -1,52 +1,70 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { loginUser } from "../../store/thunk/auth";
-import { useAppDispatch, useAppSelector } from '../../utils/hook/';
+import { useAppDispatch } from '../../utils/hook/';
 
 import './main.css';
 import './util.css';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const Data = {
-      email,
-      password
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: ""
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().email("Некоректний email.").required("Введіть будь-ласка email"),
+      password: Yup.string().required("Введіть пароль.")
+    }),
+    onSubmit: async (values) => {
+      try {
+        await dispatch(loginUser(values));
+        navigate("/profile");
+      } catch (error) {
+        formik.setFieldError("password", "Не вдалось увійти. Будь ласка перевірте правильність введення своїх даних.");
+      }
     }
-    try {
-      dispatch(loginUser(Data));
-      navigate("/profile");
-    }catch(e)
-    {
-      return e;
-    }
-  };
-
+  });
 
   return (
     <div className="limiter">
       <div className="container-login100">
         <div className="wrap-login100">
-          <form className="login100-form validate-form" onSubmit={handleLogin}>
+          <form className="login100-form validate-form" onSubmit={formik.handleSubmit}>
             <span className="login100-form-title p-b-26">
               Ласкаво просимо!
             </span>
 
             <div className="wrap-input100 validate-input">
-              <input type="email" className="form-control" value={email} placeholder="Email" onChange={e => setEmail(e.target.value)} />
+              <input
+                type="email"
+                className={`form-control ${formik.errors.email ? "is-invalid" : ""}`}
+                placeholder="Email"
+                {...formik.getFieldProps("email")}
+              />
+              {formik.errors.email && (
+                <div className="invalid-feedback">{formik.errors.email}</div>
+              )}
             </div>
 
             <div className="wrap-input100 validate-input">
               <span className="btn-show-pass">
                 <i className="zmdi zmdi-eye"></i>
               </span>
-              <input type="password" className="form-control" value={password} placeholder="Пароль" onChange={e => setPassword(e.target.value)} />
+              <input
+                type="password"
+                className={`form-control ${formik.errors.password ? "is-invalid" : ""}`}
+                placeholder="Пароль"
+                {...formik.getFieldProps("password")}
+              />
+              {formik.errors.password && (
+                <div className="invalid-feedback">{formik.errors.password}</div>
+              )}
             </div>
 
             <div className="container-login100-form-btn">
@@ -66,6 +84,9 @@ const LoginPage = () => {
                 Реєстрація
               </Link>
             </div>
+            {formik.errors.password && (
+              <div className="text-center text-danger mt-2">{formik.errors.password}</div>
+            )}
           </form>
         </div>
       </div>

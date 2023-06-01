@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import axios from "axios";
 
 function UserSettings({user}) {
-    console.log(user)
     const token = sessionStorage.getItem("token");
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);

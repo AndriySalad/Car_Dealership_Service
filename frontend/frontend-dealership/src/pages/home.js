@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import WhyChooseUsSection from "../components/about-us/about-us-block";
 import CarBaner from "../components/search-bar/car-baner";
 import Panel from "../components/search-bar/panel";
@@ -6,7 +6,11 @@ import CarList from "../components/catalog/car-list";
 
 
 
-function HomePage({carList}){
+function HomePage({getCarList, carList}){
+
+    useEffect(() => {
+        getCarList()
+    }, [])
 
     const sectionStyles = {
         sectionTitle: {

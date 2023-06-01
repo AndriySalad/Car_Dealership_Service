@@ -8,30 +8,30 @@ function AddAutoForm(){
     const [model, setModel] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(null);
-    const [doorCount, setDoorCount] = useState(0);
-    const [seatCount, setSeatCount] = useState(0);
+    const [doorCount, setDoorCount] = useState(null);
+    const [seatCount, setSeatCount] = useState(null);
     const [yearOfCreation, setYearOfCreation] = useState("");
-    const [length, setLength] = useState(0);
-    const [width, setWidth] = useState(0);
-    const [height, setHeight] = useState(0);
-    const [clearance, setClearence] = useState(0);
-    const [trunkVolume, setTrunkVolume] = useState(0);
+    const [length, setLength] = useState(null);
+    const [width, setWidth] = useState(null);
+    const [height, setHeight] = useState(null);
+    const [clearance, setClearence] = useState(null);
+    const [trunkVolume, setTrunkVolume] = useState(null);
     const [carBrandName, setCarBrandName] = useState("");
     const [maxSpeed, setMaxSpeed] = useState("");
     const [fuelUsage, setFuelUsage] = useState("");
     const [bodyTypeName, setBodyTypeName] = useState("");
     const [gearboxName, setGearboxName] = useState("");
     const [gearboxModel, setGearboxModel] = useState("");
-    const [stages, setStages] = useState(0);
+    const [stages, setStages] = useState(null);
     const [drive, setDrive] = useState("");
     const [gearboxType, setGearboxType] = useState("");
     const [engineName, setEngineName] = useState("");
-    const [engineCapacity, setEngineCapacity] = useState(0);
+    const [engineCapacity, setEngineCapacity] = useState(null);
     const [power, setPower] = useState("");
-    const [numberOfCylinders, setNumberOfCylinders] = useState(0);
+    const [numberOfCylinders, setNumberOfCylinders] = useState(null);
     const [engineType, setEngineType] = useState("");
     const [fuelType, setFuelType] = useState("");
-    const [millage, setMillage] = useState(0);
+    const [millage, setMillage] = useState(null);
 
     const fileInputRef = useRef(null);
     const [selectedFiles, setSelectedFiles] = useState([]);
@@ -79,7 +79,6 @@ function AddAutoForm(){
 
     const formData = new FormData();
     const token = sessionStorage.getItem("token")
-    console.log(selectedFiles)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -150,7 +149,7 @@ function AddAutoForm(){
                 </div>
                 <div className="cs-field-holder">
                     <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <label>Пробіг</label>
+                        <label>Пробіг (км)</label>
                     </div>
                     <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <div className="cs-field">
@@ -161,7 +160,7 @@ function AddAutoForm(){
 
                 <div className="cs-field-holder">
                     <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <label>Споживання палива</label>
+                        <label>Споживання палива (л/км)</label>
                     </div>
                     <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <div className="cs-field">
@@ -172,7 +171,7 @@ function AddAutoForm(){
 
                 <div className="cs-field-holder">
                     <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <label>Максимальна швидкість</label>
+                        <label>Максимальна швидкість (км/год)</label>
                     </div>
                     <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <div className="cs-field">
@@ -183,7 +182,7 @@ function AddAutoForm(){
 
                 <div className="cs-field-holder">
                     <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <label>Ціна($)</label>
+                        <label>Ціна ($)</label>
                     </div>
                     <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <div className="cs-field">
@@ -262,7 +261,7 @@ function AddAutoForm(){
                             <select data-placeholder="Select Make" tabindex="1" className="chosen-select" 
                                     value={engineType} onChange={(e) => setEngineType(e.target.value)}
                             >
-                                <option disabled selected>Оберіть тип двигуна</option>
+                                <option disabled selected value="">Оберіть тип двигуна</option>
                                 <option value="Дизельний">Дизельний</option>
                                 <option value="Бензиновий">Бензиновий</option>
                                 <option value="Газовий">Газовий</option>
@@ -280,7 +279,7 @@ function AddAutoForm(){
                             <select data-placeholder="Select Make" tabindex="1" className="chosen-select"
                                     value={fuelType} onChange={(e) => setFuelType(e.target.value)}
                             >
-                                <option disabled selected>Оберіть тип пального</option>
+                                <option disabled selected value="">Оберіть тип пального</option>
                                 <option value="Дизель">Дизель</option>
                                 <option value="Бензин">Бензин</option>
                                 <option value="Газ">Газ</option>
@@ -291,7 +290,7 @@ function AddAutoForm(){
                 </div>
                 <div className="cs-field-holder">
                     <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <label>Об'єм двигуна</label>
+                        <label>Об'єм двигуна (л)</label>
                     </div>
                     <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <div className="cs-field">
@@ -301,7 +300,7 @@ function AddAutoForm(){
                 </div>
                 <div className="cs-field-holder">
                     <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <label>Потужність</label>
+                        <label>Потужність (к.с.)</label>
                     </div>
                     <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <div className="cs-field">
@@ -358,7 +357,7 @@ function AddAutoForm(){
                             <select data-placeholder="Select Make" tabindex="1" className="chosen-select"
                                     value={gearboxType} onChange={(e) => setGearboxType(e.target.value)}
                             >
-                                <option disabled selected>Оберіть тип</option>
+                                <option disabled selected value="">Оберіть тип</option>
                                 <option value="Автомат">Автомат</option>
                                 <option value="Механіка">Механіка</option>
                                 <option value="Роботизована">Роботизована</option>
@@ -375,7 +374,7 @@ function AddAutoForm(){
                             <select data-placeholder="Select Make" tabindex="1" className="chosen-select"
                                     value={drive} onChange={(e) => setDrive(e.target.value)}
                             >
-                                <option disabled selected>Оберіть привід</option>
+                                <option disabled selected value="">Оберіть привід</option>
                                 <option value="передній">Передній</option>
                                 <option value="задній">Задній</option>
                                 <option value="повний">Повний</option>
@@ -435,7 +434,7 @@ function AddAutoForm(){
                 </div>
                 <div className="cs-field-holder">
                     <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <label>Об'єм багажника</label>
+                        <label>Об'єм багажника (л)</label>
                     </div>
                     <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <div className="cs-field">
@@ -445,7 +444,7 @@ function AddAutoForm(){
                 </div>
                 <div className="cs-field-holder">
                     <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <label>Довжина</label>
+                        <label>Довжина (мм)</label>
                     </div>
                     <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <div className="cs-field">
@@ -455,7 +454,7 @@ function AddAutoForm(){
                 </div>
                 <div className="cs-field-holder">
                     <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <label>Ширина</label>
+                        <label>Ширина (мм)</label>
                     </div>
                     <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <div className="cs-field">
@@ -465,7 +464,7 @@ function AddAutoForm(){
                 </div>
                 <div className="cs-field-holder">
                     <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <label>Висота</label>
+                        <label>Висота (мм)</label>
                     </div>
                     <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <div className="cs-field">
@@ -475,7 +474,7 @@ function AddAutoForm(){
                 </div>
                 <div className="cs-field-holder">
                     <div className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                        <label>Кліренс</label>
+                        <label>Кліренс (мм)</label>
                     </div>
                     <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                         <div className="cs-field">

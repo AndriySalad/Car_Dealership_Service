@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function OrderItem({order}){
-    console.log(order)
     return(
         <li className="col-lg-12 col-md-12 col-sm-12 col-xs-12" key={order.id}>
             <div className="cs-media" style={{width:"25%", height:"100%"}}>

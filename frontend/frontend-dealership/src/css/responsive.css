@@ -1,4 +1,4 @@
-/* 1170px to 980px or 768px */
+
 @media screen and (max-width: 1170px) {
 [class*="col-lg"], [class*="col-md"], [class*="col-sm"], [class*="col-xs"] {display:inline-block;vertical-align:top;margin:0 -4px 0 0;float:none;}
 .rtl [class*="col-lg"], .rtl [class*="col-md"], .rtl [class*="col-sm"], .rtl [class*="col-xs"] {display: inline-block;vertical-align: top;margin: 0 0 0 -4px;float: none;}
@@ -21,10 +21,9 @@
 .cs-logo .cs-media img{display:inline-block; width: 50px !important; height: 50px !important;}
 }
 
-/* 980px to 768px */
-/* If Required */
+
 @media screen and (max-width: 980px) {
-/* Responsive Menu */
+
 .cs-logo{display:block;text-align:center;}
 .cs-logo .cs-media{display:inline-block;}
 .cs-main-nav{width:100%; position:relative;}
@@ -33,7 +32,7 @@
 
 
 .slicknav_menu ul { display: block; }
-/*login Form Style Start*/
+
 li.cs-user-option{display:none;}
 .cs-user-option {display:inline-block;position:absolute;right:0;top:15px;}
 .cs-user-option .cs-login a{color:#8a96a6;padding:20px 20px 19px;}
@@ -63,12 +62,12 @@ footer#footer .cs-copyright .cs-back-to-top{ float:none;}
 .cs-search-result .cs-seggetions .cs-form .input-holder input[type="text"]{width: 86%;}
 }
 
-/* 767px to 480px */
+
 @media screen and (max-width: 768px) {
     .cs-main-nav ul { width: 100%;}
 .cs-ad img{ width:100%;}
 }
-/* 767px to 480px */
+
 @media screen and (max-width: 767px) {
 .main-search{ padding:0 10px;}
 .wp-automobile .auto-listing .auto-text .btn-list .btn.collapsed::after,
@@ -95,7 +94,7 @@ footer#footer .cs-copyright .cs-back-to-top{ float:none;}
 .wp-automobile .catagory-section .cs-catagory ul li {display: inline-block; width: 49%;}
 }
 
-/* 480px to 320px */
+
 @media screen and (max-width: 480px) {
     .cs-main-nav{text-align: center; justify-content: center; padding-bottom: 20px !important;}
     .main-navigation { display: flex; }

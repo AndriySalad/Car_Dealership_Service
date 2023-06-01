@@ -8,8 +8,12 @@ import UserHeader from "../components/user-page/user-header";
 import UserSettings from "../components/user-page/user-settings";
 import axios from "axios";
 
-function UserPage({carList}) {
+function UserPage({carList, getCarList}) {
     
+    useEffect(() => {
+        getCarList()
+    }, [])
+
     const token = sessionStorage.getItem('token')
     const [user, setUser] = useState(null);
 
@@ -47,7 +51,7 @@ function UserPage({carList}) {
                                         <div className="cs-user-account-holder">
                                             <UserHeader user={user}/>
                                             <Routes>
-                                                <Route path="admin-car-list" element={<AdminCarList carList={carList}/>}/>
+                                                <Route path="admin-car-list" element={<AdminCarList carList={carList} getCarList={getCarList}/>}/>
                                                 <Route path="order-list" element={<OrderList user = {user}/>}/>
                                                 <Route path="settings" element={<UserSettings user={user}/>}/>
                                                 <Route path="add-auto" element={<AddAutoForm/>}/>

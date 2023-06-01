@@ -6,7 +6,8 @@ const footerStyles = {
   footer: {
     background: "#19171a",
     padding: "32px 0 0",
-    flexShrink: "0"
+    flexShrink: "0",
+    bottom: "0"
   },
   footerWidgets: {
     background: "#141215",

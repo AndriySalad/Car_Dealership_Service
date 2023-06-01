@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function AdminCarItem({ car }) {
+function AdminCarItem({ car, getCarList }) {
     const token = sessionStorage.getItem("token");
     const deleteHandler = async (e) => {
         e.preventDefault();
@@ -15,8 +15,10 @@ function AdminCarItem({ car }) {
                 Authorization: `Bearer ${token}`
             }
             }).then(response => {
-                alert(`${car.model} успішно видалено`)
+                getCarList();
+                alert(`${response} успішно видалено`)
             }).catch(error => {
+                console.log(error)
                 alert("Ойойой... щось пішло не так.")
             })
         }

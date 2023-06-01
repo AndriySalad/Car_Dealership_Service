@@ -17,7 +17,7 @@ function CarInfo({car}){
                                         <div className="auto-text">
                                         	<h2>{car.carBrand.carBrandName} {car.model}</h2>
                                         </div>
-                                        <div className="auto-price"><span className="cs-color">${Math.floor(car.price/1000000)} {Math.floor(car.price%1000000/1000)} {car.price % 1000}</span></div>
+                                        <div className="auto-price"><span className="cs-color">${car.price}</span></div>
                                     </div>
                                 </div>
                                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">

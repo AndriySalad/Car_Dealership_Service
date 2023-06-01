@@ -17,7 +17,7 @@ function CarCard({
                 <div className="auto-text">
                     <div className="post-title">
                         <h6><Link to={`/${id}`}>{carBrand.carBrandName} {model}</Link></h6>
-                        <div className="auto-price"><span className="cs-color">${Math.floor(price/1000000)} {Math.floor(price%1000000/1000)} {price % 1000}</span></div>
+                        <div className="auto-price"><span className="cs-color">${price}</span></div>
                     </div>
                     <Link to={`/${id}`} className="View-btn">Переглянути деталі<i className=" icon-arrow-long-right"></i></Link> </div>
             </div>

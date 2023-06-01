@@ -36,21 +36,17 @@ const App = () => {
       }).catch(error => console.log(error))
   }
 
-  useEffect(() => {
-      getCarList()
-  }, [])
-  
   
   return (
     <>
       <Header/>
         <Routes>
-            <Route path="/" element={<HomePage carList={carList}/>}/>
+            <Route path="/" element={<HomePage getCarList={getCarList} carList={carList.slice(0, 8)}/>}/>
             <Route path="" element={<PrivateRoute />}>
-              <Route path="/profile/*" element={<UserPage carList={carList}/>}/>
+              <Route path="/profile/*" element={<UserPage getCarList={getCarList} carList={carList}/>}/>
             </Route>
             <Route path="/about-us" element={<AboutUsPage/>}/>
-            <Route path="/catalog" element={<CatalogPage carList={carList}/>}/>
+            <Route path="/catalog" element={<CatalogPage getCarList={getCarList} carList={carList}/>}/>
             <Route path='/:id' element={<CarPage/>}/>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage/>}/>
